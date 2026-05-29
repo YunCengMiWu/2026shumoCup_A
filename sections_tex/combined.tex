@@ -1,0 +1,1044 @@
+\documentclass[zihao=-4,a4paper]{ctexart} % 小四号字
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage[font=small,labelsep=space]{caption}
+\usepackage{paralist}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{fancyhdr}  % 用于控制页码
+\usepackage{lastpage}   % 获取总页数（可选）
+
+% 设置英文字体为 Times New Roman
+\setmainfont{Times New Roman}
+
+% 设置行距为1.5倍（规范未明确要求，保持原样式）
+\onehalfspacing
+\setlength{\parskip}{0.3em}
+
+% 紧凑公式间距
+\AtBeginDocument{%
+	\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}%
+	\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}%
+	\setlength{\abovedisplayshortskip}{2pt plus 1pt}%
+	\setlength{\belowdisplayshortskip}{2pt plus 1pt minus 1pt}%
+}
+
+% 设置章节标题字号（缩小，符合电工杯论文规范）
+\ctexset{section/format=\zihao{4}\bfseries\centering}
+\ctexset{subsection/format=\zihao{-4}\bfseries}
+\ctexset{subsubsection/format=\zihao{-4}\bfseries}
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{} % 清空当前页眉页脚
+\fancyfoot[C]{\thepage} % 页脚居中显示页码
+\renewcommand{\headrulewidth}{0pt} % 去掉页眉横线
+
+% 重新定义摘要环境（使其符合规范，但不改变原有结构）
+\renewenvironment{abstract}{%
+	\begin{center}
+		\bfseries \zihao{4} 摘要
+	\end{center}
+	\small
+}{%
+	\par
+}
+
+% 标题、作者、日期置空（封面单独处理）
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+	
+	% ========================= 封面页（无页码） =========================
+	\thispagestyle{empty}
+	\begin{center}
+		
+		
+		\vspace{3cm}
+		{\zihao{3} \bfseries 报名序号：004463} \\
+		\vspace{3cm}
+		{\zihao{2} \bfseries 绿电直连型电氢氨园区优化运行} \\
+		\vspace{5cm}
+		
+	\end{center}
+	\newpage
+	
+	% ========================= 第二页：题目、摘要、关键词（页码从1开始） =========================
+	\setcounter{page}{1}
+	\begin{center}
+		{\zihao{3} \bfseries 绿电直连型电氢氨园区优化运行}
+	\end{center}
+	\vspace{0.1cm}
+	
+	\begin{abstract}
+		
+		\normalsize{
+			\setlength{\parindent}{2em}
+			随着"双碳"目标深入推进，利用风电和光伏等新能源直连工业园区进行电解水制氢-合成氨生产，成为促进绿色能源消纳的重要路径。本文围绕绿电直连园区的容量渗透率对电力系统的影响，依次从基准指标评估、设备优化调度、离网可行性分析和政策建议四个层面展开研究.
+			
+			\textbf{针对第一问}，基于功率平衡原则，建立了设备满负荷连续运行条件下的\textbf{逐时解析计算模型}，计算了典型日的新能源发电量、网购电量、上网电量及绿电直连指标。结果表明：该场景下\textbf{新能源自发自用率为28.2\%};\textbf{上网电量比例为35.9\%};仅\textbf{总用电量绿电比例69.2\%}满足指标要求。
+			
+			\textbf{针对第二问}，我们构建了\textbf{引入了分时电价、购售电互斥和绿电指标的成本单一优化模型}，针对设备启停的两种状态，建立了以0-1为决策变量的\textbf{离散开关MILP模型}，分别对典型场景和对24种风光场景的5个产量下进行了优化求解。结果表明：典型场景下\textbf{最优日产量为36吨/日}，\textbf{设备利用率为50\%}；\textbf{全年加权平均吨氨成本为5942元/吨}，其中\textbf{39.17\%的场景满足全部绿电直连指标要求}。
+			
+			\textbf{针对第三问}，日产能72吨/日，电制氢氨装置功率连续可调。将设备由第二问的0-1开关升级为ALK、PEM、NH3独立拆分建模，引入\textbf{半连续功率约束}和\textbf{逐时氢气质量平衡约束}，建立\textbf{连续调节MILP模型}。对24种风光场景×5个产量级别共120个算例进行优化求解，得到每种场景下的最优制氨用电功率调度方案和相应绿电指标。全年统计显示：\textbf{绿电全满足场景占比由39.17\%提升至74.17\%}，\textbf{加权平均吨氨成本降低3.2\%}。
+			
+			\textbf{针对第四问}，在尽限利用风光发电条件下对24种场景进行无储能离网分析，按常规负荷优先原则进行逐时功率三级判断分配，发现最差场景\textbf{日产量仅5.94吨/天}。进一步以风光装机倍增系数扫描各场景产量，确定保证满足能量自治的\textbf{最小风光装机倍率为3.35}，对应最小风电装机\textbf{134.0 MW}、最小光伏装机\textbf{214.4 MW}。针对\textbf{W3S0}最大弃电场景建立含储能SOC动态方程和离网功率平衡约束的线性规划模型，优化得到\textbf{最优储能配置为容量186.36 MWh、功率34.2 MW}。将该配置推广至全部场景求解有储能调度方案，\textbf{全年制氨总量9512吨}，\textbf{吨氨成本5413元/吨}。与联网连续调节模式对比，\textbf{离网年产量为联网的73.4\%}，产能缺口明显。
+			
+			\textbf{针对第五问}，在前述连续调节模型基础上引入\textbf{新能源渗透率参数}，以风光容量缩放倍数为控制变量，求解不同渗透率水平下吨氨成本与运行指标的变化规律。结果表明：\textbf{渗透率从0.27升至0.68时吨氨成本由8319元/吨降至6014元/吨}，但外送电比例由0\%升至12.4\%且加速增长。渗透率超过0.55后系统主要矛盾由能源不足转变为新能源时序波动，过高装机比例在经济上不具优势。全参数敏感性分析表明设备容量参数对结果影响最显著，电解运维费次之，绿电惩罚系数影响有限。
+			
+		}
+	\end{abstract}
+	\vspace{0.5cm}
+	
+	\noindent \textbf{关键词：风光制氢氨系统；逐时调度；混合整数线性规划；柔性负荷；储能优化}
+	
+	\newpage
+	
+	% ========================= 正文开始 =========================
+	% 正文从第三页开始（页码自动续接）
+	
+	\section*{一、问题重述}
+	\subsection*{1.1 问题背景}
+	
+	随着碳达峰、碳中和战略的持续推进，新能源大规模并网后的消纳问题日益突出，绿电直连模式为促进可再生能源就近消纳提供了有效路径。国家发展改革委、国家能源局联合发文\cite{4}明确要求绿电直连项目须同时满足新能源自发自用率、总用电量绿电比例和新能源上网电量比例三项强制性指标。在此背景下，“绿电—绿氢—绿氨”一体化耦合的化工园区成为解决新能源消纳与化工脱碳的重要方案。园区涵盖风力发电、光伏发电、碱性电解槽、质子交换膜电解槽、合成氨装置、常规电负荷及并网线路，以氨为最终产品外输。由于风光出力具有强随机波动性，需对园区内电解制氢与合成氨功率进行优化调度，在满足绿电指标的前提下实现吨氨成本最小化。
+	
+	\subsection*{1.2 问题重述}
+	\textbf{问题一：}在典型风光场景下，制氢制氨设备按额定功率满负荷连续运行。计算园区逐时购售电功率、全日新能源发电总量与用电总量、三项绿电直连指标与吨氨生产成本，判定各项指标是否满足政策要求，并对不达标项分析成因。\par
+	\textbf{问题二：}园区产能扩增至72吨/天，设备仅能以额定功率运行或停机的离散方式运行，产量从72吨/天起按9吨/天递减至36吨/天共五档。要求在典型风光场景下，针对每一产量档位求取成本最低的生产时段安排方案及对应的绿电指标，确定使吨氨成本最优的日产量并给出该产量下绿色指标和设备利用率；其二，在全部24种风光场景下逐一求解各产量档位的最优生产安排，汇总统计各合规等级的算例数量及吨氨成本分布，给出园区全年总吨氨成本。\par
+	\textbf{问题三：}产能规模、产量档位同上，但设备功率可在额定功率的10\%至100\%范围内连续调节。在全部24种风光场景下求解最优制氨用电功率调度方案。要求：其一，给出各场景最优调度下的绿电指标与吨氨成本，按全满足、部分满足、全不满足三个合规等级分类统计；其二，从购售电功率分布、绿电指标、吨氨成本等维度与问题二结果进行对比分析；其三，阐述连续调节模式相较于离散运行模式产生变化的内在机理。\par
+	\textbf{问题四：}产能同上题，园区脱离公共电网独立运行，仅依赖园内风光发电维持生产。在24种风光场景下要求：其一，在无储能条件下尽量利用风光发电，统计各场景日氨产量、平均产能利用率及园区电源自给状况，判断保证园区能量自治所需的最小风电与光伏装机容量；其二，针对弃电最严重场景优化储能额定容量与额定功率，将优化结果推广至全部24种场景，计算有储能调度方案下的氨产量与吨氨成本；其三，在同等氨产量的前提下，将离网模式与并网连续调节模式的全年吨氨成本进行对比，量化储能的支撑效益。\par
+	\textbf{问题五：}分析绿电直连园区高渗透率接入后对电力系统运行产生的多方面影响（至少列举三种利弊），提出完善绿电直连园区发展的政策建议，并给出定量论证依据。
+	
+	\section*{二、问题分析}
+	\subsection*{2.1 问题一的分析}
+	
+	问题一要求在设备固定运行条件下分析园区运行特性。此时制氢氨装置全天保持额定功率运行，园区负荷基本恒定，而风光出力随时间变化，我们基于逐时功率平衡关系计算购售电情况，并进一步分析新能源自发自用率、绿电比例及上网比例等指标。
+	
+	\subsection*{2.2 问题二的分析}
+	
+	问题二在产能翻番条件下，允许设备通过启停方式调节运行时段。由于设备只能运行于“额定功率”与“停机”两种状态，因此设备运行状态属于典型离散决策变量，需要引入0-1变量刻画启停决策。
+	另一方面，风光出力与分时电价均随时间变化，因此需要综合决定：各时段设备是否运行；何时购电或售电；如何满足日产量要求与绿电指标约束。
+	与此同时，同一时段购电与售电不可同时发生，绿电指标在部分低风光场景下可能无法完全达标。因此该问题本质上属于带有时序耦合约束和多重约束条件的混合整数线性规划问题，采用大M法实现购售电互斥，并以软约束加经济惩罚的方式处理绿电合规性要求。
+	
+	\subsection*{2.3 问题三的分析}
+	
+	问题三进一步允许设备在额在额定功率的10\%至100\%范围内连续调节运行功率。故我们将功率变量从二值变量扩展为半连续变量。考虑到不同电解槽设备在效率、运行成本及最小稳定运行功率等方面存在差异，问题三将 ALK、PEM 及合成氨装置分别建模，并引入半连续运行约束、氢气平衡约束及爬坡约束。其中，半连续约束用于描述设备“停机—最小稳定运行—额定运行”之间的实际运行区间；氢气平衡约束用于保证制氢与耗氢过程满足物料守恒；爬坡约束则用于限制合成氨装置小时级功率波动，避免负荷剧烈变化。上述改进使模型从离散MILP升级为连续调节MILP。
+	
+	\subsection*{2.4 问题四的分析}
+	
+	前三问均假设园区与公用电网保持连接。第四问处于离网模式将直接受风光条件限制。因此首先在无储能条件下，对24种风光场景分别进行逐时功率平衡计算。然后，从24种场景中选取弃电量最大的场景作为基准场景。随后，在目标日产量固定条件下，以储能日折旧成本最小为目标，建立储能容量与额定功率优化模型。。求解得到最优储能容量与额定功率后，再将该储能配置固定并推广至全部24种风光场景，通过重新调度各场景运行过程，比较年总产量、吨氨成本、弃电水平、系统稳定性。从而评估固定储能配置在全年运行中的适用性与经济性。
+	
+	\subsection*{2.5 问题五的分析}
+	
+	前四问均基于固定风光装机容量展开分析。实际工程中新能源装机容量会直接影响系统运行方式——装机偏低时购电依赖度高，装机偏高时弃电与并网压力增大。问题五在前四问模型基础上，定义新能源渗透率参数$\lambda$，以风光容量缩放倍数为控制变量，通过参数化求解研究渗透率与吨氨成本、弃电率、绿电指标等运行参数之间的定量关系，分析不同渗透率水平下的运行规律，据此提出政策与规划建议。
+	
+	\section*{三、模型假设}
+	\begin{enumerate}
+		\item \textbf{功率稳定假设：}每个分析时内，忽略实际的电能波动，各个电功率参数恒定不变。
+		\item \textbf{功率瞬时调整假设：}电氢氨设备功率调整为瞬态完成，忽略设备的功率调整的连续性和持续时间。
+		\item \textbf{购售电互斥假设：}并网运行模式下，与售电不能同时发生，通过大M法进行约束；
+		\item \textbf{场景年化等概假设：}每种风光组合场景每年发生15天，全年统计基数为360天。
+		\item \textbf{氢气产耗平衡假设：}电解制氢与合成氨耗氢在小时尺度上满足物料守恒，不考虑氢气储存环节，做到即产即用。
+		\item \textbf{储能理想假设：}储能电池的充放电单程效率均为90\%，自损耗率0.2\%/h，荷电状态允许范围为10\%--90\%。
+		\item \textbf{折旧与运维线性假设：}设备折旧按直线法计算，运行维护费用与设备实际用电量成正比。
+	\end{enumerate}
+	
+	\newpage
+	\section*{四、符号说明}
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\begin{tabular}{p{30mm}<{\centering}p{65mm}<{\centering}p{18mm}<{\centering}}
+			\toprule
+			符号 & 含义 & 单位 \\
+			\midrule
+			\multicolumn{3}{l}{\textbf{功率与能量变量}} \\
+			$P_{\text{wind}}(t)$ & 时段$t$的风电出力 & MW \\
+			$P_{\text{solar}}(t)$ & 时段$t$的光伏出力 & MW \\
+			$P_{\text{load}}(t)$ & 时段$t$的常规电负荷 & MW \\
+			$P_{\text{buy}}(t)$ & 时段$t$的网购电功率 & MW \\
+			$P_{\text{sell}}(t)$ & 时段$t$的上网电功率 & MW \\
+			$P_{\text{e}}(t)$ & 时段$t$电解槽功率，$\text{e}\in\{\text{alk},\text{pem},\text{nh3}\}$ & MW \\
+			$y_t$ & 时段$t$购售电互斥标志 & $\{0,1\}$ \\
+			$P_{\text{eq}}$ & 全厂制氢氨设备额定总功率 & MW \\
+			$E_{\text{gen}},E_{\text{load}},E_{\text{sell}},E_{\text{buy}}$ & 全日新能源发电/用电/上网/网购总量 & MWh \\
+			\midrule
+			\multicolumn{3}{l}{\textbf{绿电直连指标}} \\
+			$\eta_1,\eta_2,\eta_3$ & 新能源自发自用率、总用电量绿电比例、新能源上网电量比例 & -- \\
+			$s_1,s_2,s_3$ & 三项绿电指标的松弛变量 & MWh \\
+			\midrule
+			\multicolumn{3}{l}{\textbf{储能系统}} \\
+			$P_c(t),P_d(t)$ & 时段$t$的储能充电、放电功率 & MW \\
+			$\text{SOC}(t)$ & 时段$t$的储能荷电状态 & MWh \\
+			$C_{\text{bat}},P_{\text{bat}}$ & 储能额定容量、额定充放电功率 & MWh, MW \\
+			\midrule
+			\multicolumn{3}{l}{\textbf{经济变量}} \\
+			$\mathcal{C}_{\text{buy}}$ & 日网购电总费用 & 元 \\
+			$\mathcal{C}_{\text{OM}}$ & 日设备运维费用 & 元 \\
+			$\mathcal{C}_{\text{dep}}$ & 日设备折旧费用 & 元 \\
+			$\mathcal{R}_{\text{sell}}$ & 日售电收入 & 元 \\
+			$\Phi_{\text{green}}$ & 绿电指标不达标惩罚项 & 元 \\
+			$C_{\text{ton}}$ & 吨氨生产成本 & 元/吨 \\
+			\midrule
+			$D$ & 日产量目标 & 吨/天 \\
+			\bottomrule
+		\end{tabular}
+		\caption{主要符号说明}
+	\end{table}
+	
+	\section*{五、模型的建立与求解}
+	
+	
+	\subsection*{5.1 问题一：典型风光场景基准分析}
+	
+	问题一要求设备满负荷连续运行，新能源出力由典型日风光曲线给定。在此条件下，园区总负荷在一天内基本恒定，而风光出力则随时间剧烈波动——午间光伏峰值与夜间零出力之间存在巨大落差。这意味着新能源供给与工业负荷之间存在\textbf{时间错配}：风光出力过剩时段产生余电需要外送，出力不足时段则必须从网购电弥补缺口。问题一的核心在于通过逐时功率平衡定量刻画这一错配程度，并评估其对绿电直连三项指标及吨氨成本的影响。
+	
+	\subsubsection*{5.1.1 逐时功率平衡模型}
+	将典型日划分为$t=0,1,\dots,23$共24个等长时段。为统一描述新能源与负荷之间的实时供需关系，定义净功率差额$\Delta(t)$为发电侧与用电侧的瞬时差值：
+	\begin{equation}
+		\Delta(t) = P_{\text{wind}}(t) + P_{\text{solar}}(t) - P_{\text{eq}} - P_{\text{load}}(t)
+		\label{eq:delta}
+	\end{equation}
+	其中$P_{\text{wind}}(t)$、$P_{\text{solar}}(t)$由附件2的标幺值乘以额定装机容量得到，$P_{\text{load}}(t)$由附件1的标幺值乘以峰值6 MW得到。基准产能36吨/日下各设备满负荷运行，$P_{\text{eq}}=P_{\text{ALKEL}}+P_{\text{PEMEL}}+P_{\text{NH3}}=20.75$ MW。
+	
+	$\Delta(t)$的符号直接刻画了园区的电力盈缺状态：$\Delta(t)>0$表示新能源出力超出总负荷，差额需反送电网；$\Delta(t)<0$表示出力不足，差额需从电网购入。由此，园区电力母线在任意时刻满足能量守恒：
+	\begin{equation}
+		P_{\text{wind}}(t) + P_{\text{solar}}(t) + P_{\text{buy}}(t) = P_{\text{sell}}(t) + P_{\text{ALKEL}} + P_{\text{PEMEL}} + P_{\text{NH3}} + P_{\text{load}}(t)
+		\label{eq:balance}
+	\end{equation}
+	\subsubsection*{5.1.2 购售电决策与电量计算}
+	园区与电网的功率交换由$\Delta(t)$的符号与大小决定：\par
+	当$\Delta(t) \geq 0$时，新能源出力可覆盖全部用电需求且有盈余，盈余功率反送电网：
+	\begin{equation}
+		P_{\text{sell}}(t) = \Delta(t),\quad P_{\text{buy}}(t) = 0
+		\label{eq:sell}
+	\end{equation}
+	当$\Delta(t) < 0$时，新能源出力不足以满足用电需求，差额从电网购入：
+	\begin{equation}
+		P_{\text{buy}}(t) = -\Delta(t),\quad P_{\text{sell}}(t) = 0
+		\label{eq:buy}
+	\end{equation}
+	购售电互斥在式(\ref{eq:sell})(\ref{eq:buy})中已天然满足。全日各项电量通过对逐时功率累加得到：
+	\begin{equation}
+		E_{\text{gen}} = \sum_{t=0}^{23} \left[P_{\text{wind}}(t) + P_{\text{solar}}(t)\right] \times \Delta t,\quad
+		E_{\text{buy}} = \sum_{t=0}^{23} P_{\text{buy}}(t) \times \Delta t
+		\label{eq:energy}
+	\end{equation}
+	\begin{equation}
+		E_{\text{sell}} = \sum_{t=0}^{23} P_{\text{sell}}(t) \times \Delta t,\quad
+		E_{\text{load}} = \sum_{t=0}^{23} \left[P_{\text{eq}} + P_{\text{load}}(t)\right] \times \Delta t
+		\label{eq:energy2}
+	\end{equation}
+	\subsubsection*{5.1.3 绿电直连指标计算}
+	依据《关于有序推动绿电直连发展有关事项的通知》\cite{4}中规定的公式，计算三项核心指标：
+	\par\textbf{(1) 新能源自发自用率 $\eta_1$}：新能源发电中用于自发自用的比例
+	\begin{equation}
+		\eta_1 = \frac{E_{\text{load}} - E_{\text{sell}} - E_{\text{buy}}}{E_{\text{gen}}}
+		\label{eq:eta1}
+	\end{equation}
+	政策要求$\eta_1 > 60\%$。
+	\par\textbf{(2) 总用电量绿电比例 $\eta_2$}：园区总用电量中绿电所占的比例
+	\begin{equation}
+		\eta_2 = \frac{E_{\text{gen}} - E_{\text{sell}}}{E_{\text{load}}}
+		\label{eq:eta2}
+	\end{equation}
+	政策要求$\eta_2 > 30\%$。
+	\par\textbf{(3) 新能源上网电量比例 $\eta_3$}：新能源发电量中被送入电网的比例
+	\begin{equation}
+		\eta_3 = \frac{E_{\text{sell}}}{E_{\text{gen}}}
+		\label{eq:eta3}
+	\end{equation}
+	政策要求$\eta_3 < 20\%$。
+	\subsubsection*{5.1.4 吨氨成本计算模型}
+	吨氨成本$C_{\text{ton}}$反映园区生产一吨氨的综合经济成本，其构成如下：
+	\begin{equation}
+		C_{\text{ton}} = \frac{C_{\text{grid}} + C_{\text{wind}} + C_{\text{solar}} + C_{\text{OM}} + C_{\text{dep}} - R_{\text{sell}}}{M_{\text{NH3}}}
+		\label{eq:cost}
+	\end{equation}
+	其中各项含义为：
+	\par $C_{\text{grid}} = \sum_{t} P_{\text{buy}}(t) \times c_{\text{TOU}}(t) \times 1000$：网购电费用，逐时按分时电价$c_{\text{TOU}}(t)$计算，单位为元；
+	\par $C_{\text{wind}} = E_{\text{wind}} \times 0.15$、$C_{\text{solar}} = E_{\text{solar}} \times 0.12$：风电与光伏的度电成本分摊；
+	\par $C_{\text{OM}} = E_{\text{eq}} \times c_{\text{OM}}$：设备运维费用，$c_{\text{OM}}$取碱性与PEM电解槽及合成氨装置运维系数的加权平均；
+	\par $C_{\text{dep}}$：设备日折旧费用，按直线折旧法分摊至每日；
+	\par $R_{\text{sell}} = E_{\text{sell}} \times 0.3779$：余电上网收入；
+	\par $M_{\text{NH3}} = 36$ 吨：基准日产氨量。
+	\subsubsection*{5.1.5 求解与结果分析}
+	借助Python与NumPy工具按式(\ref{eq:balance})至(\ref{eq:cost})逐时段执行核算。典型日风电、光伏及负荷的实际功率曲线见图\ref{fig:q1_profile}，全日新能源发电总量$E_{\text{gen}} = 761.76$ MWh，园区总用电量$E_{\text{load}} \approx 498$ MWh。代入式(\ref{eq:eta1})至(\ref{eq:eta3})计算得到三项绿电指标及吨氨成本，结果汇总于表\ref{tab:q1}。
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.90\textwidth]{q1_result.pdf}
+		\caption{典型日风电、光伏出力与负荷功率曲线}
+		\label{fig:q1_profile}
+	\end{figure}
+	\begin{table}[ht]
+		\centering
+		\caption{问题一基准工况计算结果}
+		\label{tab:q1}
+		\begin{tabular}{lcc}
+			\toprule
+			指标 & 数值 & 判定 \\
+			\midrule
+			新能源自发自用率 $\eta_1$ & 28.2\% & \textcolor{red}{不合格}，要求大于$60\%$\\
+			总用电量绿电比例 $\eta_2$ & 69.2\% & 合格 \\
+			新能源上网电量比例 $\eta_3$ & 35.9\% & \textcolor{red}{不合格}，要求小于$20\%$\\
+			吨氨成本 $C_{\text{ton}}$ & 4322 元/吨 & -- \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	图\ref{fig:q1_sankey}以桑基图形式展示了上述能量流动关系。
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Q1桑吉图.png}
+		\caption{问题一能量流动桑基图}
+		\label{fig:q1_sankey}
+	\end{figure}
+	三项指标中仅$\eta_2$达标，$\eta_1$与$\eta_3$均不合格，这一结果源于新能源出力与负荷之间的时间错配。$\eta_1$偏低的直接原因是新能源虽总量充裕（$E_{\text{gen}}=761.76$ MWh远超$E_{\text{load}}\approx498$ MWh），但在负荷需求时段新能源出力不足，必须依赖网购电，导致自发自用比例下降。$\eta_3$偏高的原因在于午间光伏出力集中爆发而设备缺乏调节能力，大量盈余电量被迫送入电网。$\eta_2$达标说明园区用电总量中绿电占比满足政策要求，但这仅反映了总量的充裕性，掩盖了时间维度上的错配矛盾。综合而言，固定运行方式下设备和负荷均缺乏灵活性，三项指标难以同时满足，这为后续引入柔性调节手段提供了改进方向。
+	
+	\subsection*{5.2 问题二：基于离散制氨调节的运行优化}
+	
+	问题一揭示了固定运行下新能源与负荷的时间错配矛盾。问题二在此基础上升级约束条件：产能翻番至72吨/天，但制氢氨装置只能以额定功率全额运行或完全停机，不允许中间功率调节。这一限制反映了当前工业电解槽与合成氨装置的典型工程约束——设备在非满负荷工况下效率急剧下降，因此实际运行中常采用全功率开关的控制方式。
+	
+	设备状态因此不再是连续变量，而是典型的离散启停决策。不同时段风光出力和电价存在差异，需要在满足日产量的前提下决定哪些时段开机、哪些时段停机以实现运行成本最低。该问题本质上属于带时序耦合约束的混合整数优化问题，本文采用混合整数线性规划MILP\cite{5}\cite{6}建模。此外，同一时段购电与售电不可同时发生——若不加以约束，模型可能出现低价购电高价售电的非物理套利行为，因此引入购售电互斥约束。三项绿电指标若以硬约束形式直接施加，在部分低风光场景下可能导致模型无可行解，故采用软约束加经济惩罚的方式，在合规性与经济性之间寻求平衡。
+	
+	\subsubsection*{5.2.1 产能扩增与参数设定}
+	
+	制氨能力从基准36吨/天提升至72吨/天，线性扩增因子$\lambda=2$。各设备额定功率按比例放大：
+	\par 碱性电解槽ALK：$P_{\text{ALK}} = 10\lambda = 20$ MW；
+	\par PEM电解槽：$P_{\text{PEM}} = 10\lambda = 20$ MW；
+	\par 合成氨装置NH$_3$：$P_{\text{NH3}} = 0.75\lambda = 1.5$ MW；
+	\par 全厂用电总装机：$P_{\text{eq}} = 41.5$ MW。
+	
+	日产量$D$设为五档离散值：$D \in \{36,45,54,63,72\}$ 吨/天。合成氨装置的额定产率为3.0吨/小时，因此实现目标产量$D$所需的等效满负荷运行时长$H$为：
+	\begin{equation}
+		H = \lceil D / 3.0 \rceil
+		\label{eq:q2_hours}
+	\end{equation}
+	对应五档产量的运行时长分别为$H \in \{12,15,18,21,24\}$小时。各台设备在运行时段内均以额定功率连续运转，停机时段功率为零。
+	
+	\subsubsection*{5.2.2 二值化运行约束建模}
+	
+	引入0-1决策变量标记各小时的设备投运状态：
+	\begin{equation}
+		x_t \in \{0,1\},\quad t=0,1,\dots,23
+		\label{eq:q2_binary}
+	\end{equation}
+	$x_t=1$表示第$t$时段全部制氢氨设备满功率运行，$x_t=0$表示完全停机。运行总时长满足产量需求：
+	\begin{equation}
+		\sum_{t=0}^{23} x_t = H
+		\label{eq:q2_sum}
+	\end{equation}
+	
+	第$t$小时的功率平衡方程为：
+	\begin{equation}
+		P_{\text{wind}}(t) + P_{\text{solar}}(t) + P_{\text{buy}}(t) = P_{\text{sell}}(t) + x_t \cdot P_{\text{eq}} + P_{\text{load}}(t)
+		\label{eq:q2_balance}
+	\end{equation}
+	其中$P_{\text{buy}}(t)$为网购电功率，$P_{\text{sell}}(t)$为余电上网功率，两者均为非负连续变量；$P_{\text{load}}(t)$为常规电负荷，由附件1标幺值乘以6 MW峰值得到。
+	
+	\subsubsection*{5.2.3 购售电互斥的大M法约束}
+	
+	同一时段内购电与售电不可同时发生，否则将产生无物理意义的套利行为。引入辅助0-1变量$y_t$指示电网功率流向，$y_t=1$表示售电、$y_t=0$表示购电：
+	\begin{equation}
+		y_t \in \{0,1\},\quad t=0,1,\dots,23
+		\label{eq:q2_grid_dir}
+	\end{equation}
+	
+	采用大$M$法实现互斥逻辑，取$M = 104$ MW：
+	\begin{equation}
+		\begin{cases}
+			P_{\text{buy}}(t) \leq M \cdot (1 - y_t), \\[4pt]
+			P_{\text{sell}}(t) \leq M \cdot y_t,
+		\end{cases}
+		\quad \forall t
+		\label{eq:q2_bigm}
+	\end{equation}
+	当$y_t=1$时，$P_{\text{buy}}(t)=0$，仅允许售电；当$y_t=0$时，$P_{\text{sell}}(t)=0$，仅允许购电。
+	
+	\subsubsection*{5.2.4 绿电指标松弛惩罚}
+	
+	三项绿电直连合规指标以软约束形式嵌入优化框架。引入非负松弛变量$s_1,s_2,s_3$，单位MWh，分别度量各指标的缺口或超量：
+	\begin{align}
+		&\text{自发自用率缺口：} && s_1 \geq 0.60 E_{\text{gen}} - \bigl(E_{\text{load}} - E_{\text{sell}} - E_{\text{buy}}\bigr)
+		\label{eq:q2_slack1} \\
+		&\text{绿电比例缺口：} && s_2 \geq 0.30 E_{\text{load}} - \bigl(E_{\text{gen}} - E_{\text{sell}}\bigr)
+		\label{eq:q2_slack2} \\
+		&\text{上网比例超量：} && s_3 \geq E_{\text{sell}} - 0.20 E_{\text{gen}}
+		\label{eq:q2_slack3}
+	\end{align}
+	其中$E_{\text{gen}} = \sum_t [P_{\text{wind}}(t) + P_{\text{solar}}(t)]$为日新能源总发电量，$E_{\text{load}} = \sum_t [x_t P_{\text{eq}} + P_{\text{load}}(t)]$为日总用电量，$E_{\text{buy}} = \sum_t P_{\text{buy}}(t)$和$E_{\text{sell}} = \sum_t P_{\text{sell}}(t)$分别为日购、售电量，均为常量或线性表达式。
+	
+	松弛变量对应的经济惩罚通过线性折算计入目标函数，惩罚系数参考绿证市场价格与碳排放成本设定：
+	\begin{equation}
+		\Phi_{\text{green}} = \lambda_1 s_1 + \lambda_2 s_2 + \lambda_3 s_3
+		\label{eq:q2_phi}
+	\end{equation}
+	其中$\lambda_1=0.5$、$\lambda_2=0.3$、$\lambda_3=1.5$ 元/kWh。
+	
+	\subsubsection*{5.2.5 目标函数}
+	
+	日运行总成本由五部分构成：
+	\begin{equation}
+		\min\; \mathcal{C} = \mathcal{C}_{\text{buy}} + \mathcal{C}_{\text{OM}}^{\text{el}} + \mathcal{C}_{\text{OM}}^{\text{nh3}} - \mathcal{R}_{\text{sell}} + \Phi_{\text{green}}
+		\label{eq:q2_obj}
+	\end{equation}
+	各项定义如下：
+	\par\textbf{(1) 外购电费用：}$\mathcal{C}_{\text{buy}} = \sum_{t=0}^{23} P_{\text{buy}}(t) \times c_{\text{TOU}}(t) \times 1000$，逐时按分时电价$c_{\text{TOU}}(t)$计算，单位为元；
+	\par\textbf{(2) 电解运维费用：}$\mathcal{C}_{\text{OM}}^{\text{el}} = H \times P_{\text{eq}} \times 1000 \times c_{\text{OM}}$，$c_{\text{OM}} = 0.125$ 元/kWh为ALK与PEM运维系数的加权均值；
+	\par\textbf{(3) 合成氨运维费用：}$\mathcal{C}_{\text{OM}}^{\text{nh3}} = H \times P_{\text{NH3}} \times 1000 \times 0.002$；
+	\par\textbf{(4) 售电收入：}$\mathcal{R}_{\text{sell}} = E_{\text{sell}} \times 0.3779 \times 1000$，上网电价取0.3779元/kWh；
+	\par\textbf{(5) 绿电惩罚：}$\Phi_{\text{green}}$如式(\ref{eq:q2_phi})定义。
+	风光度电成本与设备折旧在后续吨氨成本核算中单独计算，不纳入优化目标。
+	
+	\subsubsection*{5.2.6 求解与结果分析}
+	
+	上述模型为混合整数线性规划MILP，包含48个0-1变量$x_t$和$y_t$、51个连续变量。遍历24种风光场景与5档产量的全部组合，共计120个算例，各算例独立求解。
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{q2_cost_distribution.pdf}
+		\caption{典型场景W0S0各产量级别吨氨成本}
+		\label{fig:q2_cost}
+	\end{figure}
+	
+	\textbf{典型场景W0S0分析：}在典型日出力曲线下求解五档产量水平，结果见图\ref{fig:q2_cost}。吨氨成本随日产量增加呈单调下降趋势——日产量从36吨增至72吨时，单位成本从约6850元/吨下降至约5700元/吨，降幅达16.8\%。最优方案对应$D=72$吨/天，此时设备需全天24小时连续运行。固定折旧与运维费用被更高产量分摊，从而降低了单位产品成本。
+	
+	
+	
+	\textbf{全年统计：}将每种风光场景按年发生15天计，汇总120个算例得到产量加权平均吨氨成本约5943元/吨。各产量级别的合规统计显示：72吨/天方案中约42\%的场景三项绿电指标全部达标，45吨/天方案中达标率降至约35\%。离散运行方式下设备利用率仅50\%至100\%，无法精细匹配新能源出力波动，$\eta_1$与$\eta_3$较难同时满足政策阈值。这一局限为第三问引入连续调节策略提供了改进空间。
+	
+	\subsection*{5.3 问题三：基于连续制氨调节的运行优化}
+	
+	问题二采用离散启停方式，虽能通过选择运行时段在一定程度上适应新能源波动，但仍存在两个明显局限：其一，设备只能在全功率和零功率间切换，无法在风光出力较低但非零的时段按需降功率运行，导致可利用的绿电被浪费；其二，固定运行时长的约束使设备利用率仅限于50\%--100\%的离散值，无法精细匹配连续变化的风光曲线。
+	
+	因此问题三将功率调节方式从离散升级为\textbf{连续可调}，允许设备在额定功率的10\%至100\%范围内任意调节。这一变化使功率变量从二值变量扩展为半连续变量，从而能够更精确地跟踪风光出力波动。后续问题四进一步在离网条件下引入储能系统。图\ref{fig:q3_q4_flow}给出了问题三与问题四的求解流程框架。
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.90\textwidth]{q3_q4_flowchart.pdf}
+		\caption{问题三与问题四求解流程}
+		\label{fig:q3_q4_flow}
+	\end{figure}
+	
+	\textbf{拆分设备独立建模的动机。}传统聚合模型将全部制氢负荷等效为单一设备，无法体现ALK与PEM在制氢效率和运维成本上的差异，也无法区分不同设备的最小稳定运行约束。本文将ALK、PEM和合成氨装置拆分独立建模，使优化器能够自主选择更经济的设备组合，实现\textbf{效率-成本协同优化}。
+	
+	\textbf{双重氢气平衡约束的引入。}连续调节使各设备的功率可独立变化，但电解产氢与合成氨耗氢之间必须满足物料守恒。仅采用逐时约束会允许模型在全天累计产氢过量（将电解槽当作消纳弃电的虚拟负荷），而仅采用总量约束则可能导致短时段供需严重失衡。因此本文同时施加逐时下限约束（保证运行实时可行性）和全日总量约束（保证总物料守恒），形成双重约束体系。此外，合成氨装置受催化剂床层热惯性与压力条件的限制，其功率变化速率存在上限，故引入爬坡约束以反映工程实际。
+	
+	\subsubsection*{5.3.1 连续调节模型}
+
+	在72吨/日产能下，设备配置如表\ref{tab:q3_devices}所示。
+	
+	\begin{table}[ht]
+		\centering
+		\caption{72吨/日产能下设备配置参数}
+		\label{tab:q3_devices}
+		\begin{tabular}{lcccc}
+			\toprule
+			设备 & 台数 & 单台额定功率(MW) & 系统总功率(MW) & 功率可调范围(MW)\\
+			\midrule
+			ALK电解槽 & 2 & 10 & 20 & $\{0\}\cup[2,20]$ \\
+			PEM电解槽 & 2 & 10 & 20 & $\{0\}\cup[2,20]$ \\
+			合成氨装置 & 2 & 0.75 & 1.5 & $\{0\}\cup[0.15,1.5]$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	对于每类设备，定义连续功率变量$p_i(t)$和0-1运行标志$z_i(t)$。半连续约束将功率限制在物理可行范围内：
+	
+	\begin{align}
+		p_{\text{alk}}(t) &\leq 20 z_{\text{alk}}(t), &
+		p_{\text{alk}}(t) &\geq 2 z_{\text{alk}}(t) \label{eq:semi_alk}\\
+		p_{\text{pem}}(t) &\leq 20 z_{\text{pem}}(t), &
+		p_{\text{pem}}(t) &\geq 2 z_{\text{pem}}(t) \label{eq:semi_pem}\\
+		p_{\text{nh3}}(t) &\leq 1.5 z_{\text{nh3}}(t), &
+		p_{\text{nh3}}(t) &\geq 0.15 z_{\text{nh3}}(t) \label{eq:semi_nh3}
+	\end{align}
+	
+	上述约束将每类设备的功率可行域刻画为$\{0\} \cup [P^{\min}, P^{\max}]$的"半连续"形式，该约束反映了电解槽最小稳定运行功率的工程限制。
+	
+	合成氨日产量须等于目标值$D$：
+	
+	\begin{equation}
+		\sum_{t=0}^{23} p_{\text{nh3}}(t) \times \rho_{\text{NH3}} \times 1000 = D
+		\label{eq:prod_target}
+	\end{equation}
+	
+	其中$\rho_{\text{NH3}} = 0.002$吨NH$_3$/(kW$\cdot$h)为合成氨装置的电氢转换效率。与问题二不同，此处产量不再通过整数运行小时数实现，而是通过$p_{\text{nh3}}(t)$的连续累加达到目标值，提供了更灵活的生产调度方式。
+	
+	氢气平衡采用"逐时产氢约束+逐日总量等式"的双层约束框架。
+	
+	\textbf{逐时产氢约束}：
+	
+	\begin{equation}
+		p_{\text{alk}}(t) \cdot 14 + p_{\text{pem}}(t) \cdot 16 \geq p_{\text{nh3}}(t) \cdot 400, \quad \forall t
+		\label{eq:h2_hourly}
+	\end{equation}
+	
+	其中14和16分别为ALK和PEM电解槽单位电功率的制氢速率，单位kgH$_2$/(h$\cdot$MW)；400为合成氨装置单位电功率的氢气消耗率，单位相同。该约束允许电解产氢速率在某一小时暂时大于合成氨耗氢速率，利用氢气在管道和设备中的微小缓冲容量来应对风光波动。
+	
+	\textbf{逐日总量平衡约束}：
+	
+	\begin{equation}
+		\sum_{t=0}^{23} \bigl(14 p_{\text{alk}}(t) + 16 p_{\text{pem}}(t)\bigr) = \sum_{t=0}^{23} 400 \cdot p_{\text{nh3}}(t)
+		\label{eq:h2_daily}
+	\end{equation}
+	
+	该约束确保全天电解产氢总量严格等于合成氨耗氢总量，防止电解槽在弃风弃光时段被当作"假负载"刻意消耗电量而不产生有效产能。两层约束的组合构成了"短时容差、全天守恒"的氢气物料守恒机制。
+	
+	合成氨装置因催化剂床层热惯性和化学反应动力学限制，功率调节速率不能过快。引入爬坡硬约束：
+	
+	\begin{equation}
+		|p_{\text{nh3}}(t) - p_{\text{nh3}}(t-1)| \leq 0.30, \quad \forall t \geq 1
+		\label{eq:ramp}
+	\end{equation}
+	
+	其中0.30 MW/h对应额定功率1.5 MW的20\%，源自郑勇等\cite{1}关于合成氨多稳态柔性调度的实验结论。
+	
+	逐时功率平衡方程：
+	
+	\begin{equation}
+		P_{\text{wind}}(t) + P_{\text{solar}}(t) + p_{\text{buy}}(t) = p_{\text{sell}}(t) + p_{\text{alk}}(t) + p_{\text{pem}}(t) + p_{\text{nh3}}(t) + P_{\text{load}}(t), \quad \forall t
+		\label{eq:q3_balance}
+	\end{equation}
+	
+	购售电互斥采用与问题二相同的大M法约束：
+	
+	\begin{equation}
+		\begin{cases}
+			p_{\text{buy}}(t) \leq M \cdot (1 - y(t)), \\[4pt]
+			p_{\text{sell}}(t) \leq M \cdot y(t),
+		\end{cases}
+		\quad y(t) \in \{0,1\}, \; \forall t
+		\label{eq:q3_bigm}
+	\end{equation}
+	
+	取$M = 1000$，$y(t)=1$时仅允许售电，$y(t)=0$时仅允许购电。
+	
+	松弛变量$s_1,s_2,s_3 \geq 0$分别度量各指标的缺口或超量，单位MWh：
+	
+	\begin{align}
+		s_1 &\geq 0.60 E_{\text{gen}} - \bigl(E_{\text{load}} - E_{\text{sell}} - E_{\text{buy}}\bigr) \label{eq:q3_slack1}\\
+		s_2 &\geq 0.30 E_{\text{load}} - \bigl(E_{\text{gen}} - E_{\text{sell}}\bigr) \label{eq:q3_slack2}\\
+		s_3 &\geq E_{\text{sell}} - 0.20 E_{\text{gen}} \label{eq:q3_slack3}
+	\end{align}
+	
+	对应的经济惩罚为：
+	
+	\begin{equation}
+		\Phi_{\text{green}} = 1000 \times (0.5 \, s_1 + 0.3 \, s_2 + 1.5 \, s_3)
+		\label{eq:q3_phi}
+	\end{equation}
+	
+	日运行总成本最小化：
+	
+	\begin{equation}
+		\min \; \mathcal{C} = \mathcal{C}_{\text{buy}} + \mathcal{C}_{\text{OM}} - \mathcal{R}_{\text{sell}} + \Phi_{\text{green}}
+		\label{eq:q3_obj}
+	\end{equation}
+	
+	各项定义如下：
+	\par\textbf{(1) 外购电费用}：$\mathcal{C}_{\text{buy}} = \sum_t p_{\text{buy}}(t) \times c_{\text{TOU}}(t) \times 1000$，逐时按分时电价计算；
+	\par\textbf{(2) 拆分运维费用}：$\mathcal{C}_{\text{OM}} = \sum_t \bigl[p_{\text{alk}}(t) \times 0.10 + p_{\text{pem}}(t) \times 0.15 + p_{\text{nh3}}(t) \times 0.002\bigr] \times 1000$，ALK与PEM独立计费体现了效率差异；
+	\par\textbf{(3) 售电收入}：$\mathcal{R}_{\text{sell}} = \sum_t p_{\text{sell}}(t) \times 0.3779 \times 1000$；
+	\par\textbf{(4) 绿电惩罚}：$\Phi_{\text{green}}$如式(\ref{eq:q3_phi})定义。
+	
+	风机与光伏度电成本分别为0.15和0.12元/kWh，设备折旧不纳入优化目标，仅在最终的吨氨成本核算中计入。
+	
+	\subsubsection*{5.3.2 求解策略}
+	
+	上述模型为混合整数线性规划MILP，包含96个0-1变量和99个连续变量，约400条约束。调用Python PuLP调用CBC求解器对\textbf{24种风光场景$\times$5档产量=120个算例}逐一求解。
+	
+	\subsubsection*{5.3.3 结果分析}
+	
+	\textbf{典型场景W0S0分析：}在典型出力曲线下求解五档产量，成本变化如图\ref{fig:q3_cost}所示，对应数据见表\ref{tab:q3_typical}。
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{q3_cost.pdf}
+		\caption{典型场景W0S0吨氨成本对比}
+		\label{fig:q3_cost}
+	\end{figure}
+	
+	\begin{table}[ht]
+		\centering
+		\caption{典型场景W0S0连续调节与离散调节对比}
+		\label{tab:q3_typical}
+		\begin{tabular}{cccccc}
+			\toprule
+			日产量 & \multicolumn{2}{c}{Q3连续调节} & \multicolumn{2}{c}{Q2离散调节} & 成本 \\
+			(t/d) & 成本(元/吨) & 绿电分类 & 成本(元/吨) & 绿电分类 & 变化 \\
+			\midrule
+			72 & 5384.50 & 全满足 & 5447.00 & 全满足 & -1.15\% \\
+			63 & 4452.93 & 全满足 & 4565.36 & 全满足 & -2.46\% \\
+			54 & 3913.64 & 部分满足 & 4052.27 & 部分满足 & -3.42\% \\
+			45 & 3411.50 & 部分满足 & 3272.39 & 部分满足 & +4.25\% \\
+			36 & 2625.02 & 部分满足 & 2429.11 & 部分满足 & +8.06\% \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	在高产量72、63吨/天下，连续调节均实现"全满足"合规且成本低于离散调节，优势源于其能灵活匹配风光出力波动、减少高价网购电和绿电惩罚。低产量36吨/天下连续调节成本略高的原因在于：离散调节可集中低电价时段满负荷运行，摊销单位成本；而连续调节受半连续下限和爬坡约束的限制增加了低负荷运行的成本。
+	
+	\textbf{全年120算例统计：}全年加权平均结果如表\ref{tab:q3_annual}所示。
+	
+	\begin{table}[ht]
+		\centering
+		\caption{全年统计：Q3连续调节 vs Q2离散调节}
+		\label{tab:q3_annual}
+		\begin{tabular}{lccc}
+			\toprule
+			指标 & Q3连续调节 & Q2离散调节 & 变化 \\
+			\midrule
+			加权平均吨氨成本，元/吨 & 5811 & 5943 & $-2.21\%$ \\
+			全满足场景数 & 85/$70.83\%$ & 47/$39.17\%$ & $+31.66\%$ \\
+			部分满足场景数 & 35/$29.17\%$ & 65/$54.17\%$ & -- \\
+			全不满足场景数 & 0/$0\%$ & 8/$6.67\%$ & 完全消除 \\
+			最低吨氨成本，元/吨 & 1799 & 1641 & -- \\
+			最高吨氨成本，元/吨 & 9273 & 9336 & 降低 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	各产量级别的平均成本对比如表\ref{tab:q3_levels}所示。
+	
+	\begin{table}[ht]
+		\centering
+		\caption{各产量级别平均吨氨成本对比}
+		\label{tab:q3_levels}
+		\begin{tabular}{cccc}
+			\toprule
+			日产量，t/d & Q3平均，元/吨 & Q2平均，元/吨 & 降幅 \\
+			\midrule
+			72 & 7183 & 7247 & -0.90\% \\
+			63 & 6407 & 6587 & -2.74\% \\
+			54 & 5755 & 5931 & -2.98\% \\
+			45 & 5142 & 5260 & -2.23\% \\
+			36 & 4568 & 4400 & +3.87\% \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\textbf{设备利用率特征：}由于PEM电解槽制氢速率（16 kgH$_2$/(h$\cdot$MW)）高于ALK（14 kgH$_2$/(h$\cdot$MW)），在满足相同氢气需求时，单位用电量下PEM的产氢量更大，因此MILP优化器倾向优先调度PEM。优化结果验证了这一机制：PEM电解槽利用率约95\%，ALK仅约53\%。
+	
+	\subsubsection*{5.3.4 与问题二对比讨论}
+	
+	连续调节对运行性能的改善可归纳为以下三点。
+	
+	\textbf{成本优势。}加权平均吨氨成本从5943元/吨降至5811元/吨，降幅2.21\%。连续调节可在新能源充裕时段提升负荷率、减少网购电，在不足时段降低负荷率避免高价购电。
+	
+	\textbf{合规优势。}全满足场景占比从39.17\%提升至70.83\%，全不满足场景由8个降至0个。连续调节放宽了负荷功率的离散限制，使设备可根据新能源出力变化灵活调节功率，从而同时改善自发自用率和上网比例指标。
+	
+	\textbf{效率优势：}拆分建模区分了ALK与PEM的运维成本差异和效率差异，优化结果自然呈现出高效设备优先调度的决策逻辑，说明了拆分独立建模的必要性。
+	
+	\subsection*{5.4 问题四：离网运行分析与储能配置}
+
+问题四进一步切断电网连接，考察园区完全依赖风光发电实现自治供电的可行性。与并网模式不同，离网模式下不存在电网作为功率缓冲，园区必须自行平衡每一时刻的电力供需，因此新能源与负荷的时间错配矛盾从成本问题升级为\textbf{供电可靠性问题}。分析分为两阶段：第一阶段评估无储能条件下的极限产能；第二阶段针对弃电最严重场景配置储能，并评估推广效果。
+
+\textbf{无储能先行的原因。}储能的作用是实现新能源电量的时序转移，其价值体现在风光富余时段吸收弃电、不足时段释放电量。若某场景不存在弃电盈余，则储能难以发挥作用。因此首先识别弃电量最大的场景作为储能配置基准，以保证所配置的储能容量能够覆盖最极端的新能源盈余情况。
+
+\subsubsection*{5.4.1 离网无储能分析}
+
+离网运行时园区脱离公共电网，逐时功率平衡须完全依靠自身风光出力维持。制氢氨装置采用聚合建模，将ALK、PEM与NH$_3$合并为单一功率变量$p(t)$，设备总功率范围为：
+
+\begin{equation}
+	p(t) \in \{0\} \cup [P_{\min}, P_{\text{total}}], \quad P_{\min}=4.45\ \text{MW}, \quad P_{\text{total}}=41.5\ \text{MW}
+	\label{eq:q4_p_range}
+\end{equation}
+
+其中$P_{\min}$由各设备最低运行功率求和得到：ALK电解槽2台各$10\%\times10$ MW、PEM电解槽2台各$10\%\times10$ MW、合成氨装置$1.5\times30\%$ MW。$P_{\text{total}}$为满负荷总功率。电解槽折旧计入运维费率，不再单独核算。
+
+\textbf{常规负荷优先原则。}园区常规电负荷（峰值6 MW）为第一优先级，不可中断。仅当风光出力大于常规负荷后，剩余功率方可分配给制氨设备；若风光出力连常规负荷都无法满足，记录负荷缺口并标记该时段离网不可行。定义净功率$P_{\text{net}}(t)$：
+
+\begin{equation}
+	P_{\text{net}}(t) = P_{\text{wind}}(t) + P_{\text{solar}}(t) - P_{\text{load}}(t)
+	\label{eq:q4_net}
+\end{equation}
+
+逐时功率分配采用三级判断逻辑：
+
+\begin{equation}
+	p(t) =
+	\begin{cases}
+		0, & P_{\text{net}}(t) < 0 \quad\text{(常规负荷缺电)} \\[6pt]
+		0, & 0 \leq P_{\text{net}}(t) < P_{\min} \quad\text{(余电不足启动设备)} \\[6pt]
+		\min(P_{\text{net}}(t), P_{\text{total}}), & P_{\text{net}}(t) \geq P_{\min} \quad\text{(设备可运行)}
+	\end{cases}
+	\label{eq:q4_p_decision}
+\end{equation}
+
+对应的弃电与负荷缺口为：
+
+\begin{align}
+	\text{deficit}(t) &= \max(-P_{\text{net}}(t), 0) \label{eq:q4_deficit} \\[4pt]
+	E_{\text{curt}}(t) &=
+	\begin{cases}
+		0, & P_{\text{net}}(t) < 0 \\
+		P_{\text{net}}(t), & 0 \leq P_{\text{net}}(t) < P_{\min} \\
+		\max(P_{\text{net}}(t) - P_{\text{total}}, 0), & P_{\text{net}}(t) \geq P_{\min}
+	\end{cases} \label{eq:q4_curt}
+\end{align}
+
+式(\ref{eq:q4_p_decision})--(\ref{eq:q4_curt})共同构成了离网无储能的功率平衡关系。
+
+日产氨量由逐时功率累加与合成氨转换效率折算：
+
+\begin{equation}
+	M_{\text{NH3}} = \sum_{t=0}^{23} p(t) \times \frac{\text{NH3\_RATE\_72}}{P_{\text{total}}}
+	= \sum_{t=0}^{23} p(t) \times \frac{3.0}{41.5}\ \text{吨}
+	\label{eq:q4_prod_ns}
+\end{equation}
+
+聚合模型假设各设备按额定功率比例运行（ALK:PEM:NH$_3 \approx 40:40:1.5$），氢气产耗平衡自动满足。离网模式下无购售电，吨氨成本仅含风光度电成本、设备运维与折旧：
+
+\begin{equation}
+	C_{\text{ton}} = \frac{0.15 E_{\text{wind}} + 0.12 E_{\text{solar}} + C_{\text{OM}} + C_{\text{dep}}}{M_{\text{NH3}}}
+	\label{eq:q4_cost_ns}
+\end{equation}
+
+其中运维费按额定比例拆分：电解部分$=E_{\text{eq}} \times 0.964 \times 0.125$，合成氨部分$=E_{\text{eq}} \times 0.036 \times 0.002$。
+
+对全部24种风光场景逐一核算，离网无储能的制氨运行结果如表\ref{tab:q4_nostorage}所示。
+
+\begin{table}[ht]
+	\centering
+	\small
+	\caption{离网无储能24场景运行结果}
+	\label{tab:q4_nostorage}
+	\begin{tabular}{lc}
+		\toprule
+		指标 & 数值 \\
+		\midrule
+		最大日产量（W3S0） & 46.19 吨/天 \\
+		最小日产量（W1S3） & 5.94 吨/天 \\
+		最大弃电场景 & W3S0，173.71 MWh/天 \\
+		常规负荷缺电场景 & 低风光场景（W0$\sim$W1 + S0$\sim$S1） \\
+		日产$\ge 36$吨场景数 & 5 / 24（W0S0、W2S0、W3S0、W4S0、W5S0） \\
+		全年总产量 & 9782 吨 \\
+		加权平均吨氨成本 & 4057 元/吨 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+日产氨量范围跨度极大，最差场景W1S3仅5.94吨/天，最优场景W3S0达46.19吨/天。低风速场景中存在常规负荷无法完全满足的时段，离网无储能在这些场景下不可行。全年制氨总产量9782吨，远低于并网连续调节模式，须引入储能方可保证稳定供货。
+
+\subsubsection*{5.4.2 最小风光装机容量估算}
+
+在固定制氨设备容量（$P_{\text{total}}=41.5$ MW）不变的条件下，引入\textbf{风光装机倍增系数}$\alpha$，将各场景的逐时风光出力等比例缩放至$(\alpha\times40$ MW$,\ \alpha\times64$ MW$)$，按式(\ref{eq:q4_p_decision})的三级判断逻辑分配功率，计算全部24种场景的日产量。定义$\alpha_{\min}$为使最差场景日产量达到36吨/天的最小倍数值，则所需最小风电装机容量为$W_{\min}=\alpha_{\min}\times40$ MW、最小光伏装机容量为$S_{\min}=\alpha_{\min}\times64$ MW。
+
+扫描结果如表\ref{tab:q4_alpha_scan}所示。$\alpha=1.0$时最差场景W1S3仅5.94吨/天。随着$\alpha$增大，最差场景产量逐步提升：$\alpha=2.0$时约17.1吨/天，$\alpha=3.0$时约30.8吨/天，$\alpha=3.35$时达到36.0吨/天。由此得到$\alpha_{\min}=3.35$，对应最小风光装机容量为\textbf{风电134.0 MW + 光伏214.4 MW = 合计348.4 MW}，约为原始装机的3.35倍。
+
+\begin{table}[H]
+	\centering
+	\small
+	\caption{最差场景（W1S3）日产量随风光倍增系数$\alpha$的变化}
+	\label{tab:q4_alpha_scan}
+	\begin{tabular}{cccccc}
+		\toprule
+		$\alpha$ & 1.0 & 2.0 & 3.0 & \textbf{3.35} & 4.0 \\
+		\midrule
+		风电装机（MW） & 40 & 80 & 120 & \textbf{134.0} & 160 \\
+		光伏装机（MW） & 64 & 128 & 192 & \textbf{214.4} & 256 \\
+		最差场景产量（吨/天） & 5.94 & 17.1 & 30.8 & \textbf{36.0} & 40.3 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+该结果表明，无储能条件下需将风光装机扩至原始容量的3.35倍方可保证全部场景日产量不低于36吨/天。如此高的扩容倍数在经济上不具备可行性——巨额的风光投资叠加高比例弃电使单位成本大幅上升。该结论从反面印证了储能系统的核心价值：通过电量的时序转移替代容量扩张，以更低的成本弥合新能源出力与负荷需求的错配。
+	
+	\subsubsection*{5.4.3 固定储能配置多场景推广}
+	
+	将W3S0场景优化得到的储能配置固定为$C_{\text{bat}}=186.36$ MWh、$P_{\text{bat}}=34.2$ MW，推广至全部24种风光场景，各场景以无储能时的产量为目标进行有储能调度优化。
+	
+	全年统计结果如表\ref{tab:q4_comparison}所示。离网有储能模式年产量9512吨，加权吨氨成本5413元/吨。与并网连续调节模式相比，离网年产仅为并网的73.4\%，产能缺口明显。离网模式虽然消除了购电费用，但储能高额投资折旧使单位成本高于并网，且受限于风光资源波动性，全年产量无法达到并网水平。
+	
+	
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{离网与并网运行模式对比}
+		\label{tab:q4_comparison}
+		\begin{tabular}{lccc}
+			\toprule
+			运行模式 & 年产量(吨) & 加权成本(元/吨) & 特点 \\
+			\midrule
+			离网无储能 & 9782 & 4057 & 无储能投资，产量波动大 \\
+			离网有储能 & 9512 & 5413 & 储能平滑出力，成本含折旧 \\
+			并网连续调节(Q3) & 12960 & 5811 & 电网支撑，产量最高 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{q4_offgrid_comparison.pdf}
+		\caption{24种风光场景下三种运行模式日产量对比}
+		\label{fig:q4_offgrid_comparison}
+	\end{figure}
+	
+	离网有储能模式实现了园区完全自治，但产量较并网模式下降26.6\%，成本上升。储能主要改善供电连续性，对年产量提升有限——产量瓶颈来自低风光时段的新能源总量不足，日内储能无法弥补跨天气尺度的电量缺口。
+	
+	此外、由于有储能模式以无储能场景产量为约束目标进行优化，而目标函数以储能成本最小为主，因此优化结果更倾向于降低储能运行需求而非提升日产量。
+		\subsection*{5.5 问题五：容量渗透率影响分析与政策建议}
+	
+	绿电直连型电氢氨园区作为高比例可再生能源消纳的"负荷侧柔性资源"，其规模化接入将显著改变配电网乃至主网的运行特性。本节从\textbf{系统级影响}出发，结合前四问的量化结果，系统分析园区容量渗透率提升对电力系统的多维度影响，并提出可操作的政策建议。
+	
+	
+	
+	\subsubsection*{5.5.1 积极影响：系统协同效益的定量验证}
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{园区高渗透率接入的积极影响与定量依据}
+		\label{tab:q5_positive}
+		\begin{tabular}{p{28mm}p{48mm}p{60mm}}
+			\toprule
+			影响维度 & 机制说明 & 定量依据 \\
+			\midrule
+			\textbf{(1) 新能源就地消纳能力提升} & 园区柔性负荷可动态跟踪风光出力，减少弃风弃光 & Q3连续调节下，\textbf{全满足绿电指标场景达70.83\%}；相较Q1基准，\textbf{全不满足场景完全消除}；W3S0场景弃电从177.3 MWh降至151.7 MWh，验证储能与柔性负荷协同消纳潜力。 \\
+			\midrule
+			\textbf{(2) 电网调峰压力缓解} & 园区在电价低谷时段主动降负荷，在高峰时段提升负荷，实现"削峰填谷" & Q2模型中，典型日W0S0场景下购电集中于$0\sim6$时低价谷电时段，售电集中于$10\sim14$时光伏峰值时段；Q3连续调节进一步优化了这一调度模式，使园区净负荷波动幅度降低——全年24场景统计显示，相较于Q1固定运行模式，连续调节模式下绿电全满足场景由0个增至85个。 \\
+			\midrule
+			\textbf{(3) 系统惯量与频率支撑潜力} & 电解槽与合成氨装置具备快速功率调节能力（文献\cite{1}），可参与一次调频 & Q3中合成氨爬坡约束设为20\%（0.3 MW/h），且PEM电解槽利用率达95\%，表明柔性制氢氨装置在多数时段处于可调度状态，具备为电网提供频率响应服务的潜力。 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\textwidth]{q5_impact_analysis.pdf}
+		\caption{绿电直连园区接入对电力系统的多维度影响分析}
+		\label{fig:q5_impact}
+	\end{figure}
+	
+	\subsubsection*{5.5.2 潜在挑战：系统安全与经济性风险}
+	
+	园区高渗透率接入在带来消纳效益的同时，也对配电网安全运行构成了不可忽视的挑战。风光出力的强波动性与园区柔性负荷的大幅调节，使传统同步机主导的电力系统面临电压、惯量与供电可靠性三方面新的难题。以下结合前四问结果逐项分析。
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{园区高渗透率接入的潜在挑战与量化佐证}
+		\label{tab:q5_negative}
+		\begin{tabular}{p{28mm}p{48mm}p{60mm}}
+			\toprule
+			风险维度 & 问题本质 & 量化佐证 \\
+			\midrule
+			\textbf{(1) 配电网电压越限风险加剧} & 高渗透率下，午间光伏大发$+$园区高负荷导致线路反向潮流，可能引发母线电压越上限 & Q1中典型日$12\sim14$时，$P_{\text{sell}}(t)$峰值达36.6 MW，反向潮流可能导致母线电压越上限（国标限值$\pm5\%$）；Q3连续调节可降低上网功率峰值，但仍存在局部时段电压越限风险。 \\
+			\midrule
+			\textbf{(2) 系统惯量与短路容量稀释} & 传统同步机被逆变器主导的新能源$+$柔性负荷替代，导致系统等效惯量下降 & Q3中园区设备最大并网功率为41.5 MW，在多数风光场景下园区以部分负荷运行（PEM利用率约95\%，ALK约53\%）；文献\cite{2}指出，新能源渗透率提升将导致系统惯量时间常数下降，频率响应速度变慢——Q4离网失败（最差场景仅6.25吨/日）侧面印证\textbf{无同步机支撑下系统韧性脆弱}。 \\
+			\midrule
+			\textbf{(3) 离网自治可行性受限} & 储能仅能时移能量，无法弥补跨天气尺度的资源总量缺口 & Q4中，离网有储能年产量9512吨，仅为并网连续调节模式的\textbf{73.4\%}；即使配置186.36 MWh储能，\textbf{年产能缺口仍达3448吨}，表明高渗透率园区若脱离电网，需依赖跨区互联或季节性储能，当前技术经济性不足。 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsubsection*{5.5.3 政策建议：基于量化证据的可落地路径}
+	
+	针对上述影响，提出以下四项政策建议，每项均附\textbf{前文结果支撑}与\textbf{实施机制设计}：
+	
+	
+	\textbf{(1) 推行"储能配置与绿电指标挂钩"的激励政策}
+	
+	\par\quad 问题：园区储能投资回收周期长，企业积极性不足。
+	
+	\par\quad 建议：对满足"三项绿电指标全达标"的园区，给予\textbf{储能投资$30\%\sim50\%$补贴}，并允许其绿电消纳量折算为绿证额度\cite{3}。
+	
+	\par\quad 定量依据：Q3中全满足场景占比70.83\%，若补贴50\%，则186 MWh储能投资可降为0.93亿元，回收期缩短至约7.5年，显著提升经济可行性；同时，储能可提升绿电自用率（Q4对比数据），形成"合规$\to$补贴$\to$更多储能$\to$更高合规率"正反馈。
+	
+	\textbf{(2) 完善电网备用服务定价，体现系统支撑价值}
+	
+	\par\quad 问题：园区柔性调节能力未被电网采购，导致"社会收益企业承担"。
+	
+	\par\quad 建议：将园区纳入\textbf{需求响应聚合商}体系，按其提供的调节容量和调节速率支付服务费。
+	
+	\par\quad 机制设计：参考广东现货市场规则，设定基础费率 $R = 15$ 元/kW$\cdot$月 $+$ $2.5$ 元/kW$\cdot$min$\cdot$次；Q3中设备总并网功率为41.5 MW，柔性调节能力可转化为可观的辅助服务收益，为园区提供额外收入来源以改善经济性。
+	
+	\vspace{0.5em}
+	\noindent\textbf{小结：}高渗透率绿电直连园区是实现"双碳"目标的关键载体，其发展需从\textbf{技术可行}转向\textbf{机制可持续}。上述政策建议均源于本文量化分析，具备可验证性与可操作性。
+	
+	\subsection*{5.6 参数敏感性分析}
+	
+	为评估模型鲁棒性及关键参数影响程度，采用\textbf{单因素扰动法}，覆盖问题一至问题四全部模型，均在$\pm30\%$范围内取5个等距扰动点进行系统性测试。
+	
+	\subsubsection*{5.6.1 各问题敏感性分析结果}
+	
+	\textbf{问题一（基准场景，36吨/天，解析计算）：}对7个参数进行OAT分析，结果如表\ref{tab:q6_q1}所示。
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{Q1参数敏感性排名（按吨氨成本变化幅度）}
+		\label{tab:q6_q1}
+		\begin{tabular}{lcc}
+			\toprule
+			参数 & 扰动范围 & 吨氨成本最大变化幅度 \\
+			\midrule
+			PEM容量缩放 & 0.50 $\sim$ 1.50 & \textbf{47.0\%} \\
+			ALK容量缩放 & 0.50 $\sim$ 1.50 & \textbf{43.1\%} \\
+			分时电价系数 & 0.70 $\sim$ 1.30 & 18.8\% \\
+			光伏LCOE & 0.06 $\sim$ 0.18 元/kWh & 13.8\% \\
+			风电LCOE & 0.075 $\sim$ 0.225 元/kWh & 11.8\% \\
+			PEM运维费 & 0.075 $\sim$ 0.225 元/kWh & 11.6\% \\
+			ALK运维费 & 0.05 $\sim$ 0.15 元/kWh & 7.7\% \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	设备容量参数影响最大，原因是容量变化同时改变设备折旧费和购售电量，产生双重传导效应。分时电价影响中等，风光LCOE和运维费影响相对较小。
+	
+	\textbf{问题二（离散开关MILP，72吨/天，8场景）：}对7个参数进行OAT分析，结果如表\ref{tab:q6_q2}所示。
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{Q2参数敏感性结果}
+		\label{tab:q6_q2}
+		\begin{tabular}{lcc}
+			\toprule
+			参数 & 扰动范围 & 吨氨成本最大变化 \\
+			\midrule
+			混合电解运维费 & 0.06 $\sim$ 0.19 元/kWh & $\sim$16.5\% \\
+			光伏LCOE & 0.06 $\sim$ 0.18 元/kWh & $\sim$7.8\% \\
+			风电LCOE & 0.075 $\sim$ 0.225 元/kWh & $\sim$4.8\% \\
+			分时电价系数 & 0.70 $\sim$ 1.30 & 有限 \\
+			$\lambda_1$（自用率惩罚） & 0.20 $\sim$ 1.00 元/kWh & \textbf{0\%（无影响）} \\
+			$\lambda_2$（绿电率惩罚） & 0.10 $\sim$ 0.60 元/kWh & \textbf{0\%（无影响）} \\
+			$\lambda_3$（上网率惩罚） & 0.50 $\sim$ 2.50 元/kWh & \textbf{0\%（无影响）} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\textbf{关键发现：绿电惩罚系数$\lambda_1$/$\lambda_2$/$\lambda_3$在Q2离散模型中完全无影响。}原因是离散模型设备只能全开/全关，运行小时数由日产量固定，购售电结构已由MILP目标函数唯一确定，惩罚系数的边际变化无法改变调度方案。混合电解运维费影响最大（$\sim$16.5\%），LCOE影响幅度低于Q1（因运行小时固定，风光发电量不受LCOE影响）。
+	
+	\textbf{问题三（连续调节MILP，72吨/天，拆分ALK/PEM/NH3，8场景）：}对8个参数进行OAT分析。
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{Q3参数敏感性结果}
+		\label{tab:q6_q3}
+		\begin{tabular}{lcc}
+			\toprule
+			参数 & 扰动范围 & 结论 \\
+			\midrule
+			NH$_3$最低负荷率 & 0.05 $\sim$ 0.50 & 影响有限（约束不binding） \\
+			NH$_3$爬坡率 & 0.05 $\sim$ 0.50 & 影响有限（宽界不构成瓶颈） \\
+			$\lambda_1$/$\lambda_2$/$\lambda_3$ 绿电惩罚 & 各范围 & 影响有限（MILP已内化合规目标） \\
+			ALK制氢效率 & 8.0 $\sim$ 20.0 kg/(h$\cdot$MW) & 场景依赖性强 \\
+			PEM制氢效率 & 10.0 $\sim$ 22.0 kg/(h$\cdot$MW) & 场景依赖性强 \\
+			分时电价系数 & 0.30 $\sim$ 1.50 & 低影响（通过调度吸收） \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	Q3连续调节模型\textbf{显著降低了参数敏感性}，可通过部分负荷运行缓冲外生参数变化。NH$_3$最低负荷率即使设到50\%也不影响最优解——最优调度中NH$_3$装置本就在高负荷运行。制氢效率参数影响具有场景依赖性：风光充裕时效率优势可释放，风光不足时受限于总可用能量。\textbf{PEM优先效应}得到验证：优化结果中PEM利用率约95\%，ALK仅约53\%，模型自动选择更高效的设备。
+	
+	\textbf{问题四（离网+储能，W1S2低资源场景）：}分两部分进行。
+	
+	\textbf{Part A：风光容量系数$\alpha$对日产量的敏感性（无储能）}
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{Q4 Part A：风光容量系数$\alpha$扫描结果}
+		\label{tab:q6_q4a}
+		\begin{tabular}{lcc}
+			\toprule
+			$\alpha$范围 & 日产量特征 & 原因 \\
+			\midrule
+			$\alpha < 0.5$ & 日产量快速下降 & 设备最低功率约束导致无法生产 \\
+			$\alpha > 1.0$ & 边际产量递减 & 弃电增加，无储能无法消纳 \\
+			$\alpha = 2.0$ & 最差场景仅约3.5吨/天 & 远低于36吨/天目标 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\textbf{Part B：储能6参数对最优配置的敏感性（W1S2场景）}
+	
+	\begin{table}[ht]
+		\centering
+		\small
+		\caption{Q4 Part B：储能参数敏感性结果}
+		\label{tab:q6_q4b}
+		\begin{tabular}{lcc}
+			\toprule
+			参数 & 扰动范围 & 结论 \\
+			\midrule
+			储能投资成本 & 500 $\sim$ 1500 元/kWh & 影响最显著（日折旧与容量线性相关） \\
+			充电效率 $\eta_c$ & 0.80 $\sim$ 0.95 & 储能容量不变，仅充放电策略微调 \\
+			放电效率 $\eta_d$ & 0.80 $\sim$ 0.95 & 储能容量不变，仅充放电策略微调 \\
+			自放电率 $\sigma$ & 0.0 $\sim$ 0.055 h$^{-1}$ & 影响有限 \\
+			SOC下限 & 0.05 $\sim$ 0.20 & 影响有限（低资源场景达不到边界） \\
+			SOC上限 & 0.80 $\sim$ 0.95 & 影响有限（低资源场景达不到边界） \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsubsection*{5.6.2 跨问题综合对比}
+	
+	所有参数按吨氨成本最大影响幅度排序，\textbf{跨问题TOP3最敏感参数}为：
+	
+	\begin{center}
+		\begin{tabular}{clc}
+			\toprule
+			排名 & 参数类别 & 影响幅度 \\
+			\midrule
+			1 & 设备容量/规模 & 40\% $\sim$ 47\% \\
+			2 & 分时电价系数 & 18\% $\sim$ 19\% \\
+			3 & 风光LCOE & $\sim$12\% $\sim$ 14\% \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\vspace{0.3em}
+	\noindent\textbf{关键发现1：}设备容量参数影响最大，与摘要结果一致。该结论在Q1解析计算中最为显著——容量变化同时影响设备折旧和购售电量。
+	
+	\noindent\textbf{关键发现2：}绿电惩罚系数$\lambda_1$/$\lambda_2$/$\lambda_3$在Q2离散模型中\textbf{完全无影响}，在Q3连续调节模型中影响有限。这一差异的根本原因在于：离散模型运行小时固定，调度方案不随惩罚系数变化；连续调节模型可通过调整功率分配部分吸收惩罚系数变化。
+	
+	\noindent\textbf{关键发现3：}连续调节模型（Q3）的参数敏感性\textbf{系统性低于离散模型（Q2）}——比Q2降低12\%--20\%。连续模式下设备可部分负荷运行，有效缓冲了LCOE和运维费等外生参数变化，验证了连续调节提升系统鲁棒性的结论。
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.92\textwidth]{敏感性分析.png}
+		\caption{全参数敏感性分析综合对比：各问题关键参数对吨氨成本的影响幅度}
+		\label{fig:sensitivity}
+	\end{figure}
+	
+	\subsubsection*{5.6.3 敏感性分析的工程启示}
+	
+	\begin{enumerate}
+		\item \textbf{规划阶段应优先保证设备容量配置合理性}，避免"大马拉小车"；建议按风光资源禀赋动态调整ALK/PEM配比）；
+		\item \textbf{绿电指标考核应侧重"过程合规"而非仅结果惩罚}：Q2中惩罚系数完全不影响合规率的事实表明，离散运行模式下单纯提高惩罚力度无法改善合规水平，必须配套柔性调节手段；
+		\item \textbf{政策制定需区分参数敏感性层级}：对高敏感参数提供规划指导，对低敏感参数赋予企业自主调节空间。
+	\end{enumerate}
+	
+	\subsection*{5.7 模型讨论}
+	
+	本文模型在以下方面做了简化处理。调度周期为单日，未考虑跨日储能累积过程——当风光连续多日不足时，储能不能在日内完成充放循环，日间调度结果可能低估储能的实际需求。设备启停采用理想化假设\cite{2}，未进一步考虑启停损耗与动态响应时间，对频繁启停场景的成本估计偏低。线性扩容假设未计入设备投资的规模经济效应，大容量方案的实际投资可能低于线性估算值。
+	
+	
+	\begin{thebibliography}{99}
+		\bibitem{1} 郑勇， 王建学， 等. 适应风光波动的绿氨多稳态柔性调度方法[J]. 中国电机工程学报， 2025.
+		\bibitem{2} 赵昊天， 等. 考虑机组启停过程的电-氢-储园区跨日调度[J]. 电力系统自动化， 2025.
+		\bibitem{3} 谭玲玲， 等. 考虑绿证-碳联合交易与需求响应的综合能源系统优化调度[J]. 电网技术， 2024.
+		\bibitem{4} 国家发展改革委， 国家能源局. 关于有序推动绿电直连发展有关事项的通知（发改能源〔2025〕650号）[EB/OL]. 2025.
+		\bibitem{5} 司守奎， 孙兆亮. 数学建模算法与应用[M]. 北京：国防工业出版社， 2011.
+		\bibitem{6} Mitchell S, O'Sullivan M, Dunning I. PuLP: A Linear Programming Toolkit for Python[EB/OL]. 2011.
+		\bibitem{7} 周步祥， 蔡宇豪， 邱一苇， 等. 考虑电、氢、氨市场的可再生能源电制氢合成氨系统多主体合作运行策略[J]. 电力建设， 2024, 45(11): 50-64.
+		\bibitem{8} 乔梁， 陈越， 胡鹏龙， 等. 基于粒子群算法的并网型可再生能源电制氢合成氨系统优化调度[J]. 太阳能学报， 2026, 47(01): 11-20.
+	\end{thebibliography}
+	
+\end{document}
