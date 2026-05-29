@@ -1,0 +1,9 @@
+﻿
+Name           Length
+----           ------
+q3_boxplot.png  81309
+q3_pie.png     144264
+q3_radar.png   268386
+q3_scatter.png 136813
+
+

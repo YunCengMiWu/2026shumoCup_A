@@ -1,0 +1,20 @@
+Q2 MILP Verification
+====================
+Date: 2026-05-23
+
+Check 1 - Row count:
+  rows: 125 >= 100 ✓
+
+Check 2 - Slack columns present:
+  ['s_self(MWh)', 's_green(MWh)', 's_feed(MWh)'] all in columns ✓
+
+Check 3 - D=36 feasible count:
+  D=36 feasible: 24 (no regression) ✓
+
+Check 4 - CSV columns list:
+  场景编号, 风电场景, 光伏场景, 日产量目标(吨), 运行成本(元), 吨氨成本(元/吨),
+  状态, 三分类, 日购电量(MWh), 日售电量(MWh), ALK总功率(MW), PEM总功率(MW),
+  NH3总功率(MW), 新能源自发自用电量占比(%), 总用电量绿电比例(%),
+  新能源上网电量比例(%), s_self(MWh), s_green(MWh), s_feed(MWh)
+
+All 4 checks PASSED.

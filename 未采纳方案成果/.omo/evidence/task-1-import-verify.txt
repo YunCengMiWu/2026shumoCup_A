@@ -1,0 +1,2 @@
+$ python -c "from utils.constants import LAMBDA_SELF, LAMBDA_GREEN, LAMBDA_FEED; print(LAMBDA_SELF, LAMBDA_GREEN, LAMBDA_FEED)"
+0.5 0.3 0.4

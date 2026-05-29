@@ -1,0 +1,27 @@
+Q2 MILP Re-run Evidence
+======================
+Date: 2026-05-23
+Model: q2_milp.py (pure discrete, on=rated / off=0)
+Fix: Added 's_self(MWh)', 's_green(MWh)', 's_feed(MWh)' to pd.DataFrame columns list + summary_rows
+
+Run Result:
+- Exit code: 0
+- Total rows: 125 (5 targets x 24 scenarios = 120 + 5 summary rows)
+- Feasible: 24 (D=36 only)
+- Infeasible: 96 (D=72, 63, 54, 45)
+
+Verification:
+- rows: 125 >= 100 ✓
+- slack present: True ✓
+- D=36 feasible: 24 ✓
+- Columns: s_self(MWh), s_green(MWh), s_feed(MWh) present ✓
+
+Slack sample (first 5 feasible rows):
+     s_self(MWh)  s_green(MWh)  s_feed(MWh)
+96      391.7624           0.0     195.8812
+97       37.7624           0.0      18.8812
+98        0.0000           0.0       0.0000
+99        0.0000           0.0       0.0000
+100     302.0468           0.0     151.0234
+
+All checks passed. No regression.
